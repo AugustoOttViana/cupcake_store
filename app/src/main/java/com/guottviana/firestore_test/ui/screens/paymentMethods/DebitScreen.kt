@@ -1,6 +1,5 @@
 package com.guottviana.firestore_test.ui.screens.paymentMethods
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -34,7 +33,6 @@ import com.guottviana.firestore_test.ui.screens.cart.CartViewModel
 
 @Composable
 fun DebitScreen(
-    modifier: Modifier = Modifier,
     navController: NavController,
     viewModel: CartViewModel = viewModel(),
     paddingValues: PaddingValues,
@@ -69,7 +67,7 @@ fun DebitScreen(
     ) {
         TextField(
             value = owner,
-            label = { Text(text = "Card owner") },
+            label = { Text(text = stringResource(id = R.string.card_owner)) },
             onValueChange = {
                 owner = it
             })
@@ -78,7 +76,7 @@ fun DebitScreen(
 
         TextField(
             value = cardNumber,
-            label = { Text(text = "Number") },
+            label = { Text(text = stringResource(id = R.string.number)) },
             onValueChange = {
                 if(it.toIntOrNull() != null) {
                     cardNumber = it
@@ -95,7 +93,7 @@ fun DebitScreen(
                 modifier = Modifier
                     .size(width = 130.dp, height = 56.dp),
                 value = expiration,
-                label = { Text(text = "Expiration") },
+                label = { Text(text = stringResource(id = R.string.expiration_date)) },
                 onValueChange = {
                     expiration = it
                 })
@@ -106,7 +104,7 @@ fun DebitScreen(
                 modifier = Modifier
                     .size(width = 130.dp, height = 56.dp),
                 value = cvv,
-                label = { Text(text = "CVV") },
+                label = { Text(text = stringResource(id = R.string.cvv)) },
                 onValueChange = {
                     cvv = it
                 })

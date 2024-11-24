@@ -1,6 +1,5 @@
 package com.guottviana.firestore_test.ui.screens.addCupcake
 
-import android.content.Context
 import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
@@ -19,7 +17,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,11 +38,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.guottviana.firestore_test.R
 import com.guottviana.firestore_test.utils.GetCustomContents
-import java.io.IOException
 
 @Composable
 fun AddCupcakeScreen(
-    modifier: Modifier = Modifier,
     navController: NavController,
     viewModel: AddCupcakeViewModel = viewModel(),
     paddingValues: PaddingValues,
@@ -123,7 +118,7 @@ fun AddCupcakeScreen(
                 }
                             },
             label = {
-                Text(text = "Stock")
+                Text(text = stringResource(id = R.string.stock_label))
             })
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -139,7 +134,7 @@ fun AddCupcakeScreen(
                 }
             },
             label = {
-                Text(text = "Price")
+                Text(text = stringResource(id = R.string.price_label))
             })
 
         Spacer(modifier = Modifier.height(16.dp))
@@ -200,11 +195,11 @@ fun AddCupcakeScreen(
                 description = ""
                 file = null
 
-                Toast.makeText(context, "Cupcake added", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, R.string.cupcake_added_toast, Toast.LENGTH_LONG).show()
 
 
             }else{
-                Toast.makeText(context, "Please set all the fields", Toast.LENGTH_LONG).show()
+                Toast.makeText(context, R.string.cupcake_added_toast_warning, Toast.LENGTH_LONG).show()
             }
 
         }) {
@@ -223,29 +218,4 @@ fun ShowFileChooser(
         onClick = { photoPicker() }) {
         Text(text = stringResource(id = R.string.imageSelect))
     }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun ImagePicker(modifier: Modifier = Modifier, context: Context, viewModel: AddCupcakeViewModel) {
-
-//    val photoPicker = rememberLauncherForActivityResult(
-//        contract = GetCustomContents(isMultiple = false),
-//        onResult = { uris ->
-//
-//            try {
-//                val file = DocumentFile.fromSingleUri(context,uris[0])
-//            }catch (e: IOException){
-//                e.printStackTrace();
-//            }
-//        })
-//
-//
-//
-//    Box() {
-//        ShowFileChooser{
-//            photoPicker.launch("image/*")
-//        }
-//    }
-
 }

@@ -16,21 +16,17 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
+import com.guottviana.firestore_test.R
 import com.guottviana.firestore_test.domain.model.Order
-import com.guottviana.firestore_test.ui.screens.auth.AuthViewModel
-import com.guottviana.firestore_test.ui.screens.user.UserViewModel
 
 @Composable
 fun OrdersScreen(
-    navController: NavController,
     paddingValues: PaddingValues,
-    viewModel: OrdersViewModel = viewModel(),
-    authViewModel: AuthViewModel
+    viewModel: OrdersViewModel = viewModel()
 ){
 
     val orders by viewModel.orders.collectAsStateWithLifecycle()
@@ -44,7 +40,7 @@ fun OrdersScreen(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.Center
         ) {
-            Text(text = "No Orders")
+            Text(text = stringResource(id = R.string.no_orders))
         }
     } else {
         LazyColumn(modifier = Modifier.padding(paddingValues)) {
@@ -69,8 +65,8 @@ fun OrderItem(order: Order){
             )
             .padding(8.dp)
     ) {
-        Text(text = "Products: ${order.products}")
-        Text(text = "Address: ${order.address}")
-        Text(text = "Total Amount: ${order.price}")
+        Text(text = stringResource(id = R.string.products) + ": ${order.products}")
+        Text(text = stringResource(id = R.string.address) + ": ${order.address}")
+        Text(text = stringResource(id = R.string.price_label) + ": ${order.price}")
     }
 }

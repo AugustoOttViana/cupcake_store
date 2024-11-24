@@ -28,7 +28,6 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -41,9 +40,10 @@ import com.guottviana.firestore_test.R
 import com.guottviana.firestore_test.domain.model.Cupcake
 import com.guottviana.firestore_test.navigation.Routes
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.ui.res.stringResource
+
 @Composable
 fun CupcakeListScreen(
-    modifier: Modifier = Modifier,
     navController: NavController,
     viewModel: CupcakeListViewModel = viewModel(),
     paddingValues: PaddingValues
@@ -96,7 +96,7 @@ fun CupcakeListScreen(
                         ),
                         placeholder = {
                             Text(
-                                text = "Search for products",
+                                text = stringResource(id = R.string.search_placeholder),
                                 style = MaterialTheme.typography.bodySmall
                             )
                         }

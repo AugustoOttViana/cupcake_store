@@ -35,13 +35,11 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.guottviana.firestore_test.R
 import com.guottviana.firestore_test.domain.model.User
-import com.guottviana.firestore_test.ui.screens.auth.AuthViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
 @Composable
 fun UserEditScreen(
     navController: NavController,
-    authViewModel: AuthViewModel,
     viewModel: AdminViewModel = viewModel(),
     user: User,
     paddingValues: PaddingValues
@@ -102,7 +100,7 @@ fun UserEditScreen(
 
                     DropdownMenuItem(
                         text = {
-                            Text(text = "customer")
+                            Text(text = stringResource(id = R.string.customer_option))
                         },
                         onClick = {
                             type = 1
@@ -110,7 +108,7 @@ fun UserEditScreen(
 
                     DropdownMenuItem(
                         text = {
-                            Text(text = "employee")
+                            Text(text = stringResource(id = R.string.employee_option))
                         },
                         onClick = {
                             type = 2
@@ -118,7 +116,7 @@ fun UserEditScreen(
 
                     DropdownMenuItem(
                         text = {
-                            Text(text = "administrator")
+                            Text(text = stringResource(id = R.string.admin_option))
                         },
                         onClick = {
                             type = 3

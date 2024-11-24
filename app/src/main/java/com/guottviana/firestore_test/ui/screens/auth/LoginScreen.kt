@@ -33,7 +33,7 @@ import androidx.navigation.NavController
 import com.guottviana.firestore_test.navigation.Routes
 
 @Composable
-fun LoginScreen(modifier: Modifier = Modifier, navController: NavController, authViewModel: AuthViewModel){
+fun LoginScreen(navController: NavController, authViewModel: AuthViewModel){
 
     var email by remember {
         mutableStateOf("")
@@ -98,13 +98,6 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavController, aut
 
         Spacer(modifier = Modifier.height(32.dp))
 
-//        TextButton(onClick = {  }) {
-//            Text(text = "Forgot your password?")
-//        }
-        /* ou
-        Text(text = "Esqueceu a senha?", modifier = Modifier.clickable {  })
-       */
-
         Spacer(modifier = Modifier.height(12.dp))
         TextButton(
             onClick = {
@@ -113,40 +106,6 @@ fun LoginScreen(modifier: Modifier = Modifier, navController: NavController, aut
             enabled = authState.value != AuthState.Loading) {
             Text(text = stringResource(id = R.string.signup))
         }
-//        Spacer(modifier = Modifier.height(12.dp))
-
-//        Text(text = "Or sign in with")
-//    Row (modifier = Modifier
-//        .fillMaxWidth()
-//        .padding(40.dp),
-//        horizontalArrangement = Arrangement.SpaceEvenly) {
-//        Image(painter = painterResource(id = R.drawable.google),
-//            contentDescription = "Google",
-//            modifier = Modifier
-//                .size(60.dp)
-//                .clickable {
-//
-//                }
-//        )
-//
-//        Image(painter = painterResource(id = R.drawable.facebook),
-//            contentDescription = "facebook",
-//            modifier = Modifier
-//                .size(60.dp)
-//                .clickable {
-//
-//                }
-//        )
-//
-//        Image(painter = painterResource(id = R.drawable.twitter),
-//            contentDescription = "twitter",
-//            modifier = Modifier
-//                .size(60.dp)
-//                .clickable {
-//
-//                }
-//        )
-//}
 
     }
 

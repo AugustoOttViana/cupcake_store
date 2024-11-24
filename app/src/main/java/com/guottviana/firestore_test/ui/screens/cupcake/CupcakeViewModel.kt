@@ -3,13 +3,13 @@ package com.guottviana.firestore_test.ui.screens.cupcake
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.ViewModel
 import com.google.firebase.Timestamp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObjects
 import com.google.firebase.ktx.Firebase
+import com.guottviana.firestore_test.R
 import com.guottviana.firestore_test.domain.model.Comment
 import com.guottviana.firestore_test.domain.model.Cupcake
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,7 +21,7 @@ class CupcakeViewModel: ViewModel() {
     private val auth = FirebaseAuth.getInstance()
 
     fun getComments(cupcake: Cupcake): StateFlow<List<Comment>>{
-        var commentList = MutableStateFlow<List<Comment>>(emptyList())
+        val commentList = MutableStateFlow<List<Comment>>(emptyList())
         db.collection("comments")
             .whereEqualTo("cupcakeFlavor", cupcake.flavor)
             .addSnapshotListener { value, error ->
@@ -52,7 +52,7 @@ class CupcakeViewModel: ViewModel() {
             .addOnSuccessListener {
 
                 Log.d("COMMENT", "Comment added successfully")
-                Toast.makeText(context, "Comment added", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.comment_added, Toast.LENGTH_SHORT).show()
             }.addOnFailureListener {
 
                 Log.w("FAILED", "Error adding comment", it)

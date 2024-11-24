@@ -12,7 +12,6 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObjects
 import com.google.firebase.ktx.Firebase
-import com.google.firebase.storage.ktx.storage
 import com.guottviana.firestore_test.R
 import com.guottviana.firestore_test.domain.model.Cupcake
 import com.guottviana.firestore_test.domain.model.User
@@ -25,8 +24,6 @@ class AdminViewModel: ViewModel() {
 
     private val db = Firebase.firestore
 
-    private val storage = Firebase.storage
-    private val storageRef = storage.reference
 
 
 
@@ -104,7 +101,7 @@ class AdminViewModel: ViewModel() {
     }
 
 
-    private fun OutputStream.writeCsv(context: Context,listOfData: List<Cupcake>) {
+    private fun OutputStream.writeCsv(listOfData: List<Cupcake>) {
         //get data create directory
 
         val writer = bufferedWriter()
@@ -147,7 +144,7 @@ class AdminViewModel: ViewModel() {
 
         uri?.let { it ->
             context.contentResolver.openOutputStream(it, "w").use { out ->
-                out?.writeCsv(context,cupcakeList)
+                out?.writeCsv(cupcakeList)
             }
             contentValues.clear()
             contentValues.put(MediaStore.Files.FileColumns.IS_PENDING, 0)
@@ -156,7 +153,7 @@ class AdminViewModel: ViewModel() {
 
             Toast.makeText(
                 context,
-                "$fileName created on $dirDest",
+                "$fileName ${R.string.created_on} $dirDest",
                 Toast.LENGTH_LONG).show()
         }
 

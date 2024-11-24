@@ -27,20 +27,17 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.guottviana.firestore_test.R
-import com.guottviana.firestore_test.ui.screens.auth.AuthViewModel
 
 @Composable
 fun AddressScreen(
     navController: NavController,
     paddingValues: PaddingValues,
-    viewModel: UserViewModel = viewModel(),
-    authViewModel: AuthViewModel
+    viewModel: UserViewModel = viewModel()
 ){
     val address by viewModel.address.collectAsStateWithLifecycle()
 
@@ -159,7 +156,7 @@ fun AddressScreen(
                 onClick = {
 
                     if (country == "" || street == "" || state == "" || city == "" || number == "" || number == "0") {
-                        Toast.makeText(context, "Please fill all the fields", Toast.LENGTH_LONG).show()
+                        Toast.makeText(context, R.string.address_added_toast_warning, Toast.LENGTH_LONG).show()
                     }else {
                         viewModel.addAddress(
                             country = country,

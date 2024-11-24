@@ -12,15 +12,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import com.guottviana.firestore_test.R
+import com.guottviana.firestore_test.navigation.Routes
 import com.guottviana.firestore_test.utils.CurrencyUtils
 
 @Composable
 fun ConfirmationScreen(
-    modifier: Modifier = Modifier,
     navController: NavController,
     viewModel: CartViewModel = viewModel(),
     paddingValues: PaddingValues
@@ -37,7 +39,7 @@ fun ConfirmationScreen(
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(
-                text = "price:",
+                text = stringResource(id = R.string.price_label) + ":",
                 modifier = Modifier.weight(1f),
                 fontSize = 32.sp
             )
@@ -50,9 +52,9 @@ fun ConfirmationScreen(
         }
 
         Button(onClick = {
-            navController.navigate("payment")
+            navController.navigate(Routes.paymentScreen)
         }) {
-            Text(text = "Confirm")
+            Text(text = stringResource(id = R.string.confirm))
         }
 
     }

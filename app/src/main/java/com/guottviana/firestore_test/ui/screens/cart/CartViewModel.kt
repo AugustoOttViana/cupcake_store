@@ -4,12 +4,12 @@ import android.content.Context
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
-import androidx.room.util.query
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.firestore.toObjects
 import com.google.firebase.ktx.Firebase
+import com.guottviana.firestore_test.R
 import com.guottviana.firestore_test.domain.model.Address
 import com.guottviana.firestore_test.domain.model.CartItem
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -148,7 +148,7 @@ class CartViewModel: ViewModel() {
         db.collection("order")
             .add(data)
             .addOnSuccessListener {
-                Toast.makeText(context, "Order created", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, R.string.order_created, Toast.LENGTH_SHORT).show()
 
                 cartItems.forEach {
                     db.collection("cupcakes")

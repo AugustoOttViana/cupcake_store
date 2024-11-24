@@ -27,8 +27,6 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
-import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -90,11 +88,11 @@ fun AppNavigation(
 
     NavHost(navController = navController, startDestination = "login", builder = {
         composable("login"){
-            LoginScreen(modifier, navController, authViewModel)
+            LoginScreen(navController, authViewModel)
         }
 
         composable("home"){
-            CupcakeListScreen(modifier, navController, paddingValues = paddingValues)
+            CupcakeListScreen(navController, paddingValues = paddingValues)
 
         }
 
@@ -104,7 +102,7 @@ fun AppNavigation(
         }
 
         composable("add"){
-            AddCupcakeScreen(modifier, navController, paddingValues = paddingValues)
+            AddCupcakeScreen(navController, paddingValues = paddingValues)
 
         }
 
@@ -113,11 +111,11 @@ fun AppNavigation(
         }
 
         composable("address"){
-            AddressScreen(navController = navController, paddingValues = paddingValues, authViewModel = authViewModel)
+            AddressScreen(navController = navController, paddingValues = paddingValues)
         }
 
         composable("orders"){
-            OrdersScreen(navController = navController, paddingValues = paddingValues, authViewModel = authViewModel)
+            OrdersScreen(paddingValues = paddingValues)
         }
 
         composable("admin"){
@@ -128,7 +126,7 @@ fun AppNavigation(
             typeMap = mapOf(typeOf<Cupcake>() to cupcakeNavType)
                 ){
             val productRoute = it.toRoute<Routes.CupcakeScreen>()
-            CupcakeScreen(modifier, navController, authViewModel, cupcake = productRoute.cupcake, paddingValues = paddingValues)
+            CupcakeScreen(navController, authViewModel, cupcake = productRoute.cupcake, paddingValues = paddingValues)
 
         }
 
@@ -136,29 +134,29 @@ fun AppNavigation(
             typeMap = mapOf(typeOf<User>() to userNavType)
         ){
             val productRoute = it.toRoute<Routes.UserEditScreen>()
-            UserEditScreen( navController, authViewModel, user = productRoute.user, paddingValues = paddingValues)
+            UserEditScreen( navController, user = productRoute.user, paddingValues = paddingValues)
 
         }
 
         composable("cart"){
-            CartScreen(modifier = modifier, navController = navController, paddingValues = paddingValues)
+            CartScreen( navController = navController, paddingValues = paddingValues)
 
         }
 
         composable("confirm"){
-            ConfirmationScreen(modifier = modifier, navController = navController, paddingValues = paddingValues)
+            ConfirmationScreen( navController = navController, paddingValues = paddingValues)
         }
 
         composable("payment"){
-            PaymentScreen(modifier = modifier, navController = navController, paddingValues = paddingValues)
+            PaymentScreen( navController = navController, paddingValues = paddingValues)
         }
 
         composable("credit"){
-            CreditScreen(modifier = modifier, navController = navController, paddingValues = paddingValues)
+            CreditScreen( navController = navController, paddingValues = paddingValues)
         }
 
         composable("debit"){
-            DebitScreen(modifier = modifier, navController = navController, paddingValues = paddingValues)
+            DebitScreen( navController = navController, paddingValues = paddingValues)
         }
 
     })
@@ -201,10 +199,6 @@ fun TopNavigationBar(
 
     val userType by authViewModel.user.collectAsStateWithLifecycle()
 
-    val cupcakes by viewModel.cupcakeList.collectAsStateWithLifecycle()
-    val filteredCupcakes by viewModel.filteredProducts.collectAsStateWithLifecycle()
-
-
     CenterAlignedTopAppBar(
         colors = TopAppBarColors(color,color,color,Color.Black,color),
         title = { Text(
@@ -230,12 +224,12 @@ fun TopNavigationBar(
                 if (userType?.typeId!! > 1) {
 
                     DropdownMenuItem(text = {
-                        Text(text = "Add cupcake")
+                        Text(text = stringResource(id = R.string.add_cupcake_button))
                     }, onClick = navToAdd)
 
                     if (userType?.typeId!! > 2) {
                         DropdownMenuItem(text = {
-                            Text(text = "Administration")
+                            Text(text = stringResource(id = R.string.administration_button))
                         }, onClick = navToAdministration)
                     }
                 }
@@ -271,19 +265,19 @@ fun TopNavigationBar(
                     }) {
 
                     DropdownMenuItem(text = {
-                        Text("Profile")
+                        Text(stringResource(id = R.string.profile_button))
                     }, onClick = {
                         navToUser()
                     } )
 
                     DropdownMenuItem(text = {
-                        Text("Orders")
+                        Text(text = stringResource(id = R.string.orders_button))
                     }, onClick = {
                         navToOrder()
                     } )
 
                     DropdownMenuItem(text = {
-                        Text("Sign out")
+                        Text(stringResource(id = R.string.sign_out))
                     }, onClick = {
                         authViewModel.signout()
                     } )
@@ -360,7 +354,7 @@ fun CupcakesPopup(
                             },
                             placeholder = {
                                 Text(
-                                    text = "Search for products",
+                                    text = stringResource(id = R.string.search_placeholder),
                                     style = MaterialTheme.typography.bodySmall,
                                     color = Color.Red
                                 )

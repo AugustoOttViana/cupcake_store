@@ -1,8 +1,5 @@
 package com.guottviana.firestore_test.ui.screens.cupcake
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -54,7 +51,6 @@ import com.guottviana.firestore_test.ui.screens.auth.AuthViewModel
 
 @Composable
 fun CupcakeScreen(
-    modifier: Modifier = Modifier,
     navController: NavController,
     authViewModel: AuthViewModel,
     viewModel: CupcakeViewModel = viewModel(),
@@ -149,14 +145,14 @@ fun CupcakeScreen(
                 Text(
                     modifier = Modifier
                         .background(Color.LightGray),
-                    text = "Sem descrição",
+                    text = stringResource(id = R.string.no_description),
                 )
             }
 
             Spacer(modifier = Modifier.height(32.dp))
 
             Button(onClick = { viewModel.addToCart(cupcake) }) {
-                Text(text = "Add to cart")
+                Text(text = stringResource(id = R.string.add_to_cart_button))
             }
 
             Spacer(modifier = Modifier.height(48.dp))
@@ -191,7 +187,7 @@ fun CupcakeScreen(
             Button(onClick = {
                 showPopup = true
             }) {
-                Text(text = "Show comments")
+                Text(text = stringResource(id = R.string.show_comments))
             }
         }
 

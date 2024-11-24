@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "410716018293",
+    "project_id": "compose-firebase-b0f40",
+    "storage_bucket": "compose-firebase-b0f40.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410716018293:android:9e862d2b14c5a7de8f0a3c",
+        "android_client_info": {
+          "package_name": "com.guottviana.firestore_test"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtIiuHkxHXgz1tcihIrGdVr8drgI9LDsE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

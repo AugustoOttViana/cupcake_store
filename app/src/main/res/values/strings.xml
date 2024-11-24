@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Cupcake Store</string>
+    <string name="welcome">Welcome</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="user_name">User name</string>
+    <string name="login">Login</string>
+    <string name="signup">Don\'t have a account? Signup</string>
+    <string name="ask_login">Enter your account details</string>
+    <string name="page_signup">Signup</string>
+    <string name="has_account">Already have a account? Login</string>
+    <string name="create_account_button">Signup</string>
+    <string name="flavor">Flavor</string>
+    <string name="amount">Amount</string>
+    <string name="confirm">Confirm</string>
+    <string name="imageSelect">Choose a image</string>
+    <string name="description">Description</string>
+    <string name="sendButton">Send</string>
+    <string name="number">Number</string>
+    <string name="city">City</string>
+    <string name="street">Street</string>
+    <string name="country">Country</string>
+    <string name="state">State</string>
+
+</resources>

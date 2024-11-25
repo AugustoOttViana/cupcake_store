@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
         val authViewModel : AuthViewModel by viewModels()
         setContent {
             Firestore_testTheme {
-                val shouldShowBottomNav = remember {
+                val shouldShowNav = remember {
                     mutableStateOf(true)
                 }
 
@@ -49,7 +49,7 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     topBar = {
                         AnimatedVisibility(
-                            visible = shouldShowBottomNav.value,
+                            visible = shouldShowNav.value,
                             enter = fadeIn()) {
                                 TopNavigationBar(
                                     authViewModel = authViewModel,
@@ -79,7 +79,8 @@ class MainActivity : ComponentActivity() {
                     AppNavigation(
                         authViewModel = authViewModel,
                         navController = navController,
-                        paddingValues = paddingValues
+                        paddingValues = paddingValues,
+                        shouldShowNav = shouldShowNav
                     )
                 }
 

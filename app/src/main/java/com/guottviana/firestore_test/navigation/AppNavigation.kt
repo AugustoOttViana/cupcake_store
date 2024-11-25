@@ -30,6 +30,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -81,50 +82,60 @@ fun AppNavigation(
     modifier: Modifier = Modifier,
     authViewModel: AuthViewModel,
     navController: NavHostController,
-    paddingValues: PaddingValues
-){
+    paddingValues: PaddingValues,
+    shouldShowNav: MutableState<Boolean>
+    ){
 
     val authState = authViewModel.authState.observeAsState()
 
     NavHost(navController = navController, startDestination = "login", builder = {
         composable("login"){
+            shouldShowNav.value = false
             LoginScreen(navController, authViewModel)
         }
 
         composable("home"){
+            shouldShowNav.value = true
             CupcakeListScreen(navController, paddingValues = paddingValues)
 
         }
 
         composable("signup"){
+            shouldShowNav.value = false
             SignupScreen(modifier, navController, authViewModel)
 
         }
 
         composable("add"){
+            shouldShowNav.value = true
             AddCupcakeScreen(navController, paddingValues = paddingValues)
 
         }
 
         composable("user"){
+            shouldShowNav.value = true
             UserScreen(navController = navController, paddingValues = paddingValues, authViewModel = authViewModel)
         }
 
         composable("address"){
+            shouldShowNav.value = true
             AddressScreen(navController = navController, paddingValues = paddingValues)
         }
 
         composable("orders"){
+            shouldShowNav.value = true
             OrdersScreen(paddingValues = paddingValues)
         }
 
         composable("admin"){
+            shouldShowNav.value = true
             AdminScreen(modifier = modifier, navController = navController, paddingValues = paddingValues)
         }
 
         composable<Routes.CupcakeScreen>(
             typeMap = mapOf(typeOf<Cupcake>() to cupcakeNavType)
                 ){
+            shouldShowNav.value = true
             val productRoute = it.toRoute<Routes.CupcakeScreen>()
             CupcakeScreen(navController, authViewModel, cupcake = productRoute.cupcake, paddingValues = paddingValues)
 
@@ -133,29 +144,35 @@ fun AppNavigation(
         composable<Routes.UserEditScreen>(
             typeMap = mapOf(typeOf<User>() to userNavType)
         ){
+            shouldShowNav.value = true
             val productRoute = it.toRoute<Routes.UserEditScreen>()
             UserEditScreen( navController, user = productRoute.user, paddingValues = paddingValues)
 
         }
 
         composable("cart"){
+            shouldShowNav.value = true
             CartScreen( navController = navController, paddingValues = paddingValues)
 
         }
 
         composable("confirm"){
+            shouldShowNav.value = true
             ConfirmationScreen( navController = navController, paddingValues = paddingValues)
         }
 
         composable("payment"){
+            shouldShowNav.value = true
             PaymentScreen( navController = navController, paddingValues = paddingValues)
         }
 
         composable("credit"){
+            shouldShowNav.value = true
             CreditScreen( navController = navController, paddingValues = paddingValues)
         }
 
         composable("debit"){
+            shouldShowNav.value = true
             DebitScreen( navController = navController, paddingValues = paddingValues)
         }
 

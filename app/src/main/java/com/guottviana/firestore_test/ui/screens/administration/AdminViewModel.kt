@@ -24,9 +24,6 @@ class AdminViewModel: ViewModel() {
 
     private val db = Firebase.firestore
 
-
-
-
     fun setColor(color:String){
 
         db.collection("colorOption")

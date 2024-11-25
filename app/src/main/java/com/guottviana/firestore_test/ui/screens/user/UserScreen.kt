@@ -67,7 +67,7 @@ fun UserScreen(
             verticalArrangement = Arrangement.Center
         ) {
 
-            if (address != null) {
+            if (address?.street != "") {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -76,6 +76,17 @@ fun UserScreen(
                     verticalAlignment = Alignment.Top
                 ) {
                     Text(text = address.toString())
+                }
+                Spacer(modifier = Modifier.height(48.dp))
+            }else{
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .background(Color.LightGray)
+                        .clickable { navController.navigate(Routes.addressScreen) },
+                    verticalAlignment = Alignment.Top
+                ) {
+                    Text(text = stringResource(id = R.string.add_address))
                 }
                 Spacer(modifier = Modifier.height(48.dp))
             }
@@ -95,7 +106,7 @@ fun UserScreen(
             Spacer(modifier = Modifier.height(24.dp))
 
             UserAttributeRow(
-                attributeName = stringResource(id = R.string.user_name),
+                attributeName = stringResource(id = R.string.user_type),
                 attributeValue = user?.type.toString()
             )
         }

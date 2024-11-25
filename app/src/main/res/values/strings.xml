@@ -7,6 +7,7 @@
     <string name="user_email">User email</string>
     <string name="user_type">User type</string>
     <string name="login">Login</string>
+    <string name="add_address">Add your address</string>
     <string name="signup">Don\'t have a account? Signup</string>
     <string name="ask_login">Enter your account details</string>
     <string name="page_signup">Signup</string>
@@ -26,15 +27,15 @@
     <string name="administration_button">Administration</string>
     <string name="profile_button">Profile</string>
     <string name="add_cupcake_button">Add Cupcake</string>
-    <string name="orders_button">Administration</string>
+    <string name="orders_button">Orders</string>
     <string name="sign_out">Sign out</string>
     <string name="search_placeholder">Search for products</string>
     <string name="stock_label">Stock</string>
     <string name="price_label">Price</string>
     <string name="cupcake_added_toast">Cupcake added</string>
     <string name="cupcake_added_toast_warning">Please fill all the fields</string>
-    <string name="color_options_button">Administration</string>
-    <string name="user_options_button">Administration</string>
+    <string name="color_options_button">Color</string>
+    <string name="user_options_button">Users</string>
     <string name="export_button">Export</string>
     <string name="select_color_label">Select color</string>
     <string name="red_option">Red</string>
@@ -60,5 +61,4 @@
     <string name="created_on">created on</string>
     <string name="order_created">Order created</string>
     <string name="comment_added">Comment added</string>
-
 </resources>

@@ -65,7 +65,7 @@ class AuthViewModel : ViewModel(){
             "userName" to userName,
             "email" to email,
             "type" to "customer",
-            "typeId" to 1
+            "typeId" to 3
         )
 
         _authState.value = AuthState.Loading

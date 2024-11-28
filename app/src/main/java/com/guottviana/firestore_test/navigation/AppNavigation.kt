@@ -225,8 +225,6 @@ fun TopNavigationBar(
 
     val color by viewModel.color.collectAsStateWithLifecycle()
 
-    val cartItemCount by viewModel.cartItemCount.collectAsStateWithLifecycle()
-
     val userType by authViewModel.user.collectAsStateWithLifecycle()
 
     CenterAlignedTopAppBar(
@@ -290,15 +288,6 @@ fun TopNavigationBar(
                         contentDescription = "Credits: OpenClipart-Vectors"
                     )
 
-                    if (cartItemCount > 0){
-                        Text(
-                            text = cartItemCount.toString(),
-                            color = Color.Black,
-                            modifier = Modifier
-                                .align(Alignment.BottomCenter)
-                                .background(Color.Yellow)
-                        )
-                    }
                 }
             }
 

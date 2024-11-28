@@ -9,6 +9,7 @@ import com.google.firebase.firestore.toObjects
 import com.google.firebase.ktx.Firebase
 import com.guottviana.firestore_test.domain.model.CartItem
 import com.guottviana.firestore_test.domain.model.Cupcake
+import com.guottviana.firestore_test.ui.screens.auth.AuthState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 
@@ -19,11 +20,6 @@ class TopNavigationViewModel: ViewModel() {
     private val _filteredProducts = MutableStateFlow<List<Cupcake>>(emptyList())
     var filteredProducts = _filteredProducts.asStateFlow()
 
-    private var _cartItemCount = MutableStateFlow(0)
-    var cartItemCount = _cartItemCount.asStateFlow()
-
-    private val auth : FirebaseAuth = FirebaseAuth.getInstance()
-
     private var _cupcakes = MutableStateFlow<List<Cupcake>>(emptyList())
     var cupcakeList = _cupcakes.asStateFlow()
 
@@ -33,7 +29,6 @@ class TopNavigationViewModel: ViewModel() {
 
     init {
         getColor()
-        cartItemList()
     }
     private fun getColor() {
 
@@ -94,18 +89,4 @@ class TopNavigationViewModel: ViewModel() {
         }
     }
 
-    private fun cartItemList(){
-        db.collection("cartItem" )
-            .whereEqualTo("user", auth.currentUser?.email)
-            .addSnapshotListener() {value, error ->
-
-                if (error != null){
-                    return@addSnapshotListener
-                }
-
-                if (value != null){
-                    _cartItemCount.value = value.count()
-                }
-            }
-    }
 }

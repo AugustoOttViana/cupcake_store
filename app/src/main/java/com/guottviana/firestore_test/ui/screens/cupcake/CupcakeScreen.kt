@@ -79,6 +79,88 @@ fun CupcakeScreen(
             .fillMaxSize(),
         contentAlignment = Alignment.Center
     ){
+
+        LazyColumn(
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+
+            item {
+                AsyncImage(
+                    model = cupcake.image,
+                    contentDescription = "",
+                    modifier = Modifier.size(120.dp)
+                )
+
+
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                Text(
+                    text = cupcake.flavor,
+                    fontSize = 36.sp,
+                    fontWeight = FontWeight.Medium
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+
+                if (cupcake.description != "") {
+                    Text(
+                        modifier = Modifier.background(Color.LightGray),
+                        text = cupcake.description
+                    )
+                } else {
+                    Text(
+                        modifier = Modifier
+                            .background(Color.LightGray),
+                        text = stringResource(id = R.string.no_description),
+                    )
+                }
+
+                Spacer(modifier = Modifier.height(32.dp))
+
+                Button(onClick = { viewModel.addToCart(cupcake, context) }) {
+                    Text(text = stringResource(id = R.string.add_to_cart_button))
+                }
+
+                Spacer(modifier = Modifier.height(48.dp))
+
+                Box() {
+                    Column(horizontalAlignment = Alignment.End) {
+                        OutlinedTextField(
+                            value = comment,
+                            minLines = 3,
+                            onValueChange = {
+                                comment = it.trimEnd()
+                            })
+                        if (comment != "") {
+                            Button(
+                                onClick = {
+                                    viewModel.addComment(
+                                        text = comment,
+                                        flavor = cupcake.flavor,
+                                        context,
+                                        user?.userName.toString()
+                                    )
+                                    comment = ""
+                                }
+                            ) {
+                                Text(text = stringResource(id = R.string.sendButton))
+                            }
+                        }
+                    }
+                }
+                Spacer(modifier = Modifier.height(48.dp))
+
+                Button(onClick = {
+                    showPopup = true
+                }) {
+                    Text(text = stringResource(id = R.string.show_comments))
+                }
+            }
+        }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -118,84 +200,6 @@ fun CupcakeScreen(
                 }
             }
 
-        }
-
-        Column(
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally) {
-
-            AsyncImage(
-                model = cupcake.image,
-                contentDescription = "",
-                modifier = Modifier.size(240.dp)
-            )
-
-
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            Text(
-                text = cupcake.flavor,
-                fontSize = 36.sp,
-                fontWeight = FontWeight.Medium
-            )
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-
-            if (cupcake.description != "") {
-                Text(
-                    modifier = Modifier.background(Color.LightGray),
-                    text = cupcake.description
-                )
-            }else{
-                Text(
-                    modifier = Modifier
-                        .background(Color.LightGray),
-                    text = stringResource(id = R.string.no_description),
-                )
-            }
-
-            Spacer(modifier = Modifier.height(32.dp))
-
-            Button(onClick = { viewModel.addToCart(cupcake, context) }) {
-                Text(text = stringResource(id = R.string.add_to_cart_button))
-            }
-
-            Spacer(modifier = Modifier.height(48.dp))
-
-            Box() {
-                Column(horizontalAlignment = Alignment.End) {
-                    OutlinedTextField(
-                        value = comment,
-                        minLines = 3,
-                        onValueChange = {
-                            comment = it.trimEnd()
-                        })
-                    if (comment != ""){
-                        Button(
-                            onClick = {
-                                viewModel.addComment(
-                                    text = comment,
-                                    flavor = cupcake.flavor,
-                                    context,
-                                    user?.userName.toString()
-                                )
-                                comment = ""
-                            }
-                        ) {
-                            Text(text = stringResource(id = R.string.sendButton))
-                        }
-                    }
-                }
-            }
-            Spacer(modifier = Modifier.height(48.dp))
-
-            Button(onClick = {
-                showPopup = true
-            }) {
-                Text(text = stringResource(id = R.string.show_comments))
-            }
         }
 
         CommentsPopup(showPopup = showPopup, comments = filteredComments, onDismiss = { showPopup = false})

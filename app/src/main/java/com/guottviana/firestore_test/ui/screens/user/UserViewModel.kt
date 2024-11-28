@@ -1,11 +1,14 @@
 package com.guottviana.firestore_test.ui.screens.user
 
+import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.toObject
 import com.google.firebase.ktx.Firebase
+import com.guottviana.firestore_test.R
 import com.guottviana.firestore_test.domain.model.Address
 import com.guottviana.firestore_test.domain.model.Cupcake
 import com.guottviana.firestore_test.domain.model.User
@@ -44,7 +47,8 @@ class UserViewModel: ViewModel() {
         street: String,
         city: String,
         state: String,
-        number: Int
+        number: Int,
+        context: Context
     ) {
 
         val data = hashMapOf(
@@ -66,7 +70,9 @@ class UserViewModel: ViewModel() {
                         .document(it.documents[0].id)
                         .set(data)
                         .addOnSuccessListener { documentReference ->
-                            Log.d("UPDATED", "Successfully added to the cart")
+                            Log.d("UPDATED", "Successfully edited address")
+                            Toast.makeText(context, R.string.address_added_toast, Toast.LENGTH_LONG).show()
+
                         }
                         .addOnFailureListener { e ->
                             Log.w("FAILED", "Error adding document", e)

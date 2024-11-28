@@ -1,5 +1,7 @@
 package com.guottviana.firestore_test.ui.screens.paymentMethods
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -78,8 +80,8 @@ fun DebitScreen(
             value = cardNumber,
             label = { Text(text = stringResource(id = R.string.number)) },
             onValueChange = {
-                if(it.toIntOrNull() != null) {
-                    cardNumber = it
+                if(it.toLongOrNull() != null && it.length <= 16) {
+                    cardNumber = it.trim()
                 }else if (it == ""){
                     cardNumber = ""
                 }
@@ -94,8 +96,14 @@ fun DebitScreen(
                     .size(width = 130.dp, height = 56.dp),
                 value = expiration,
                 label = { Text(text = stringResource(id = R.string.expiration_date)) },
+                placeholder = { Text(text = stringResource(id = R.string.expiration_value))},
                 onValueChange = {
-                    expiration = it
+                    if(it.replace("/","").toIntOrNull() != null && it.length <= 5) {
+                        expiration = it
+
+                    }else if (it == ""){
+                        expiration = ""
+                    }
                 })
 
             Spacer(modifier = Modifier.width(10.dp))
@@ -106,23 +114,39 @@ fun DebitScreen(
                 value = cvv,
                 label = { Text(text = stringResource(id = R.string.cvv)) },
                 onValueChange = {
-                    cvv = it
+                    if(it.toIntOrNull() != null && it.length <= 3) {
+                        cvv = it
+                    }else if (it == ""){
+                        cvv = ""
+                    }
                 })
         }
 
         Spacer(modifier = Modifier.height(20.dp))
 
         Button(onClick = {
-            cvv = ""
-            expiration = ""
-            cardNumber = ""
-            owner = ""
+            if (cvv.length != 3 ||
+                (expiration.length != 5 || !expiration.contains('/')) ||
+                cardNumber.length != 16 ||
+                owner == "" ) {
 
-            viewModel.createOrder(viewModel.cartItemList.value, address as Address, context)
+                Log.d("cvv", (cvv.length != 3).toString())
+                Log.d("expiration", (expiration.length != 5 || !expiration.contains('/')).toString())
+                Log.d("TESTE", (cardNumber.length != 16).toString())
+                Log.d("TESTE", (owner == "").toString())
+                Toast.makeText(context, R.string.card_payment_error_toast, Toast.LENGTH_LONG).show()
+            }else {
+                cvv = ""
+                expiration = ""
+                cardNumber = ""
+                owner = ""
 
-            navController.navigate(Routes.orderScreen)
+                viewModel.createOrder(viewModel.cartItemList.value, address as Address, context)
+
+                navController.navigate(Routes.orderScreen)
+            }
         }) {
-            Text(text = stringResource(id = R.string.sendButton))
+            Text(text = stringResource(id =R.string.sendButton))
         }
 
     }

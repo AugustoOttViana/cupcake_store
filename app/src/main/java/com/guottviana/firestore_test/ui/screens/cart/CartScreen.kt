@@ -135,7 +135,8 @@ fun CartItem(
         AsyncImage(
             model = item.image,
             contentDescription = null,
-            contentScale = ContentScale.Crop
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.size(80.dp)
         )
         Spacer(modifier = Modifier.size(8.dp))
         Column(

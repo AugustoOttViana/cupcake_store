@@ -1,5 +1,6 @@
 package com.guottviana.firestore_test.navigation
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -53,6 +54,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.navOptions
 import androidx.navigation.toRoute
 import coil.compose.AsyncImage
 import com.guottviana.firestore_test.R
@@ -75,6 +77,8 @@ import com.guottviana.firestore_test.ui.screens.paymentMethods.CreditScreen
 import com.guottviana.firestore_test.ui.screens.paymentMethods.DebitScreen
 import com.guottviana.firestore_test.ui.screens.user.AddressScreen
 import com.guottviana.firestore_test.ui.screens.user.UserScreen
+import kotlinx.coroutines.flow.forEach
+import kotlin.math.log
 import kotlin.reflect.typeOf
 
 @Composable
@@ -96,7 +100,7 @@ fun AppNavigation(
 
         composable("home"){
             shouldShowNav.value = true
-            CupcakeListScreen(navController, paddingValues = paddingValues)
+            CupcakeListScreen(navController, paddingValues = paddingValues, authViewModel = authViewModel)
 
         }
 
@@ -180,7 +184,14 @@ fun AppNavigation(
 
     LaunchedEffect(authState.value) {
         when (authState.value) {
-            is AuthState.Unauthenticated -> navController.navigate(Routes.loginScreen)
+            is AuthState.Unauthenticated -> navController.navigate(
+                route = Routes.homeScreen,
+//                navOptions = navOptions {
+//                    popUpTo(route = navController.graph){
+//                        inclusive = true
+//                    }
+//                }
+            )
             else -> Unit
         }
     }
@@ -213,6 +224,8 @@ fun TopNavigationBar(
     }
 
     val color by viewModel.color.collectAsStateWithLifecycle()
+
+    val cartItemCount by viewModel.cartItemCount.collectAsStateWithLifecycle()
 
     val userType by authViewModel.user.collectAsStateWithLifecycle()
 
@@ -270,7 +283,23 @@ fun TopNavigationBar(
             }
 
             IconButton(onClick = navToCart) {
-                Image(painter = painterResource(id = R.drawable.ic_cart), contentDescription = "Credits: OpenClipart-Vectors")
+                Box {
+
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_cart),
+                        contentDescription = "Credits: OpenClipart-Vectors"
+                    )
+
+                    if (cartItemCount > 0){
+                        Text(
+                            text = cartItemCount.toString(),
+                            color = Color.Black,
+                            modifier = Modifier
+                                .align(Alignment.BottomCenter)
+                                .background(Color.Yellow)
+                        )
+                    }
+                }
             }
 
             IconButton(onClick = { expandedUser = true }) {

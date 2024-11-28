@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.navOptions
 import com.guottviana.firestore_test.R
 import com.guottviana.firestore_test.navigation.Routes
 
@@ -49,7 +50,14 @@ fun SignupScreen(modifier: Modifier = Modifier, navController: NavController, au
 
     LaunchedEffect(authState.value) {
         when(authState.value){
-            is AuthState.Authenticated -> navController.navigate(Routes.homeScreen)
+            is AuthState.Authenticated -> navController.navigate(
+                route = Routes.homeScreen,
+                navOptions = navOptions {
+                    popUpTo(route = Routes.loginScreen){
+                        inclusive = true
+                    }
+                }
+            )
             is AuthState.Error -> Toast.makeText(context, (authState.value as AuthState.Error).message, Toast.LENGTH_SHORT).show()
             else -> Unit
         }
@@ -66,7 +74,9 @@ fun SignupScreen(modifier: Modifier = Modifier, navController: NavController, au
         Spacer(modifier = Modifier.height(16.dp))
 
         OutlinedTextField(value = email,
-            onValueChange = { it -> email = it },
+            onValueChange = { it ->
+                email = it.trim()
+            },
             label = {
                 Text(text = stringResource(id = R.string.email))
             })
@@ -75,7 +85,7 @@ fun SignupScreen(modifier: Modifier = Modifier, navController: NavController, au
 
         OutlinedTextField(
             value = password, onValueChange = { it ->
-                password = it
+                password = it.trim()
             },
             label = {
                 Text(text = stringResource(id = R.string.password))
@@ -96,7 +106,7 @@ fun SignupScreen(modifier: Modifier = Modifier, navController: NavController, au
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = {
-            authViewModel.signup(email, password, username)
+            authViewModel.signup(email, password, username.trimEnd())
         },
             enabled = authState.value != AuthState.Loading) {
             Text(text = stringResource(id = R.string.create_account_button))

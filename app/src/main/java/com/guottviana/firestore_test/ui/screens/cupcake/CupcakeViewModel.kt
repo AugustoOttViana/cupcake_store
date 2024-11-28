@@ -60,7 +60,7 @@ class CupcakeViewModel: ViewModel() {
             }
     }
 
-    fun addToCart(cupcake: Cupcake){
+    fun addToCart(cupcake: Cupcake, context: Context){
 
         val data = hashMapOf(
             "flavor" to cupcake.flavor,
@@ -82,6 +82,8 @@ class CupcakeViewModel: ViewModel() {
                         .update("quantity", (it.documents[0].data?.get("quantity") as Long) + 1)
                         .addOnSuccessListener { documentReference ->
                             Log.d("UPDATED", "Successfully added to the cart")
+                            Toast.makeText(context, R.string.cupcake_to_cart_toast, Toast.LENGTH_LONG).show()
+
                         }
                         .addOnFailureListener { e ->
                             Log.w("FAILED", "Error adding document", e)
@@ -90,6 +92,7 @@ class CupcakeViewModel: ViewModel() {
                     db.collection("cartItem")
                         .add(data)
                         .addOnSuccessListener { documentReference ->
+                            Toast.makeText(context, R.string.cupcake_to_cart_toast, Toast.LENGTH_LONG).show()
                             Log.d("CREATED", "DocumentSnapshot written with ID: ${documentReference.id}")
                         }
                         .addOnFailureListener { e ->

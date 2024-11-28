@@ -56,8 +56,12 @@
     <string name="address">Address</string>
     <string name="card_owner">Card owner</string>
     <string name="expiration_date">Expiration</string>
+    <string name="expiration_value">MM/YY</string>
     <string name="cvv">CVV</string>
     <string name="address_added_toast_warning">Please fill all the fields</string>
+    <string name="card_payment_error_toast">The fields are not set correctly</string>
+    <string name="address_added_toast">Address successfully added</string>
+    <string name="cupcake_to_cart_toast">Cupcake added to cart</string>
     <string name="created_on">created on</string>
     <string name="order_created">Order created</string>
     <string name="comment_added">Comment added</string>

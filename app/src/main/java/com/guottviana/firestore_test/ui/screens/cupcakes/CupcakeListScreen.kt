@@ -1,5 +1,6 @@
 package com.guottviana.firestore_test.ui.screens.cupcakes
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -40,13 +41,19 @@ import com.guottviana.firestore_test.R
 import com.guottviana.firestore_test.domain.model.Cupcake
 import com.guottviana.firestore_test.navigation.Routes
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.res.stringResource
+import androidx.navigation.navOptions
+import com.guottviana.firestore_test.ui.screens.auth.AuthState
+import com.guottviana.firestore_test.ui.screens.auth.AuthViewModel
 
 @Composable
 fun CupcakeListScreen(
     navController: NavController,
     viewModel: CupcakeListViewModel = viewModel(),
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    authViewModel: AuthViewModel
 ){
     var filterString by remember {
         mutableStateOf("")
@@ -56,9 +63,26 @@ fun CupcakeListScreen(
         mutableStateOf(false)
     }
 
+    val authState = authViewModel.authState.observeAsState()
+
     val cupcakes by viewModel.cupcakeList.collectAsStateWithLifecycle()
     val filteredCupcakes by viewModel.filteredProducts.collectAsStateWithLifecycle()
 
+    navController.visibleEntries
+
+    LaunchedEffect(authState.value) {
+        when (authState.value) {
+            is AuthState.Unauthenticated -> navController.navigate(
+                route = Routes.loginScreen,
+                navOptions = navOptions {
+                    popUpTo(navController.graph.id){
+                        inclusive = true
+                    }
+                }
+            )
+            else -> Unit
+        }
+    }
 
     Column(modifier = Modifier
         .padding(paddingValues)

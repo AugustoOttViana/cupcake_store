@@ -159,12 +159,15 @@ fun AddressScreen(
                         Toast.makeText(context, R.string.address_added_toast_warning, Toast.LENGTH_LONG).show()
                     }else {
                         viewModel.addAddress(
-                            country = country,
-                            street = street,
-                            state = state,
-                            city = city,
-                            number = number.toInt()
+                            country = country.trimEnd(),
+                            street = street.trimEnd(),
+                            state = state.trimEnd(),
+                            city = city.trimEnd(),
+                            number = number.toInt(),
+                            context = context
                         )
+
+                        navController.popBackStack()
                     }
                 }) {
                 Text(text = stringResource(id = R.string.sendButton))

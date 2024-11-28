@@ -185,8 +185,8 @@ fun AddCupcakeScreen(
                 viewModel.addCupcake(
                     stock = stock,
                     price = price,
-                    flavor = flavor,
-                    description = description,
+                    flavor = flavor.trimEnd(),
+                    description = description.trimEnd(),
                     file = file
                 )
                 stock = ""

@@ -123,7 +123,14 @@ fun CupcakeScreen(
         Column(
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally) {
-            AsyncImage(model = cupcake.image, contentDescription = "")
+
+            AsyncImage(
+                model = cupcake.image,
+                contentDescription = "",
+                modifier = Modifier.size(240.dp)
+            )
+
+
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -151,7 +158,7 @@ fun CupcakeScreen(
 
             Spacer(modifier = Modifier.height(32.dp))
 
-            Button(onClick = { viewModel.addToCart(cupcake) }) {
+            Button(onClick = { viewModel.addToCart(cupcake, context) }) {
                 Text(text = stringResource(id = R.string.add_to_cart_button))
             }
 
@@ -163,7 +170,7 @@ fun CupcakeScreen(
                         value = comment,
                         minLines = 3,
                         onValueChange = {
-                            comment = it
+                            comment = it.trimEnd()
                         })
                     if (comment != ""){
                         Button(
